@@ -10,10 +10,13 @@ export function activate( context: vscode.ExtensionContext ) {
 
    function makeTarget( dir: string, target: string ) {
       let term = vscode.window.activeTerminal;
-      if( term === null ) {
-         term = vscode.window.createTerminal( "Make" );
+      console.log( "makeTarget|term = " + term );
+      if( term === undefined ) {
+         term = vscode.window.createTerminal( dir );
+         console.log( "makeTarget|after createTerminal, term = " + term );
       }
       if( term !== undefined ) {
+         console.log( "makeTarget|term.show( false )" );
          term.show( false );
          term.sendText( "make " + target );
       }
