@@ -29,13 +29,19 @@ export function activate( context: vscode.ExtensionContext ) {
          if( err ) { throw err; }
          const dir   = require( 'path' ).dirname( path );
          const lines = data.toString().split( '\n' );
+         let continuation = false;
          for( let ndx in lines ) {
             let line = lines[ndx];
             let tokens: string[] = line.split( /\s+/ );
-            if(( tokens.length > 1 )&&( tokens[0] === '.PHONY:' )) {
+            if(( tokens.length > 1 )&&( continuation ||( tokens[0] === '.PHONY:' ))) {
                sbItem.show();
+               continuation = false;
                for( let ndxT = 1; ndxT < tokens.length; ++ndxT ) {
-                  const target    = tokens[ndxT];
+                  let target = tokens[ndxT];
+                  if( target.endsWith( '\\' )) {
+                     target = target.substring( 0, target.length - 1 );
+                     continuation = true;
+                  }
                   const commandID = 'extension.mk.' + target;
                   targets.push( target );
                   console.log( "parseMakefile|registerCommand '" + commandID + '"' );
