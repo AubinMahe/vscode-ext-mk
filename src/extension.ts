@@ -18,7 +18,8 @@ export function activate( context: vscode.ExtensionContext ) {
       if( term !== undefined ) {
          console.log( "makeTarget|term.show( false )" );
          term.show( false );
-         term.sendText( "make " + target );
+         target = target.substring( dir.length + 1 );
+         term.sendText( "(cd '" + dir + "' && make " + target + ")" );
       }
    }
    
@@ -42,6 +43,7 @@ export function activate( context: vscode.ExtensionContext ) {
                      target = target.substring( 0, target.length - 1 );
                      continuation = true;
                   }
+                  target = dir + "." + target;
                   const commandID = 'extension.mk.' + target;
                   targets.push( target );
                   console.log( "parseMakefile|registerCommand '" + commandID + '"' );
