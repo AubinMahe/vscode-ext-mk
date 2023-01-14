@@ -26,6 +26,7 @@ export function activate( context: vscode.ExtensionContext ) {
    const targets: string[] = [];
 
    function parseMakefile( context: vscode.ExtensionContext, path: string ) {
+      console.log("parseMakefile|" + path);
       require( 'fs' ).readFile( path, ( err: any, data: any ) => {
          if( err ) { throw err; }
          const dir   = require( 'path' ).dirname( path );
@@ -34,18 +35,33 @@ export function activate( context: vscode.ExtensionContext ) {
          for( let ndx in lines ) {
             let line = lines[ndx];
             let tokens: string[] = line.split( /\s+/ );
-            if(( tokens.length > 1 )&&( continuation ||( tokens[0] === '.PHONY:' ))) {
+            if(( tokens.length === 1 )&&( tokens[0] === '.PHONY:\\' )) {
+               continuation = true;
+            }
+            else if(( tokens.length > 0 )&&( continuation ||( tokens[0] === '.PHONY:' ))) {
                sbItem.show();
                continuation = false;
-               for( let ndxT = 1; ndxT < tokens.length; ++ndxT ) {
+               for( let ndxT = ( tokens[0] === '.PHONY:' ) ? 1 : 0; ndxT < tokens.length; ++ndxT ) {
                   let target = tokens[ndxT];
+                  if( target.length === 0 ) {
+                     continue;
+                  }
                   if( target.endsWith( '\\' )) {
                      target = target.substring( 0, target.length - 1 );
                      continuation = true;
                   }
-                  target = dir + "." + target;
-                  const commandID = 'extension.mk.' + target;
-                  targets.push( target );
+                  let prefix = dir;
+                  if( vscode.workspace.workspaceFolders ) {
+                     for( const ws of vscode.workspace.workspaceFolders ) {
+                        const sw = dir.substring( 0, ws.uri.path.length );
+                        if( sw === ws.uri.path ) {
+                           prefix = ws.name + dir.substring( ws.uri.path.length );
+                           break;
+                        }
+                     }
+                  }
+                  const commandID = 'extension.mk.' + prefix + "." + target;
+                  targets.push( prefix + "." + target );
                   console.log( "parseMakefile|registerCommand '" + commandID + '"' );
                   context.subscriptions.push(
                      vscode.commands.registerCommand( commandID, () => makeTarget( dir, target )));

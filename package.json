@@ -1,8 +1,8 @@
 {
    "name": "mk",
    "displayName": "mk",
-   "description": "Extract PHONY target of a Makefile, add one button for each.",
-   "version": "0.0.3",
+   "description": "Extract PHONY targets of a all the Makefiles of the worspace (multi-projects), add 'mk' button to display a picker list filled with all targets, prefixed by project name.",
+   "version": "0.0.4",
    "repository": {
       "type": "git",
       "url": "git://github.com/aubin.mahe/vscode-ext-mk.git"
