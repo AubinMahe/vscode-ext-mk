@@ -2,13 +2,13 @@
    "name": "mk",
    "displayName": "mk",
    "description": "Extract PHONY targets of a all the Makefiles of the worspace (multi-projects), add 'mk' button to display a picker list filled with all targets, prefixed by project name.",
-   "version": "0.0.4",
+   "version": "0.0.5",
    "repository": {
       "type": "git",
       "url": "git://github.com/aubin.mahe/vscode-ext-mk.git"
    },
    "engines": {
-      "vscode": "^1.74.0"
+      "vscode": "^1.109.5"
    },
    "categories": [
       "Other",
@@ -37,15 +37,14 @@
       "test": "node ./out/test/runTest.js"
    },
    "devDependencies": {
-      "@types/glob": "^8.1.0",
       "@types/mocha": "^10.0.10",
-      "@types/node": "22.x",
-      "@types/vscode": "^1.96.0",
-      "@typescript-eslint/eslint-plugin": "^8.19.1",
-      "@typescript-eslint/parser": "^8.19.1",
-      "@vscode/test-electron": "^2.4.1",
-      "glob": "^11.0.0",
-      "mocha": "^11.0.1",
-      "typescript": "^5.7.2"
+      "@types/node": "25.x",
+      "@types/vscode": "^1.109.0",
+      "@typescript-eslint/eslint-plugin": "^8.56.1",
+      "@typescript-eslint/parser": "^8.56.1",
+      "@vscode/test-electron": "^2.5.2",
+      "glob": "^13.0.6",
+      "mocha": "12.0.0-beta-8",
+      "typescript": "^5.9.3"
    }
 }
