@@ -4,7 +4,9 @@ Ce développement concerne une extension pour Visual Studio Code.
 
 ## Fonctions
 
-Cette extension affiche un menu de type *QuickPick* composé des différentes cibles du Makefile du projet courant quand l'utilisateur clique *mk* dans la barre de statut.
+Cette extension analyse les Makefiles présent dans les arborescences des projets de l'espace de travail à la recherche des différentes cibles `.PHONY:`.
+
+Quand l'utilisateur clique *mk* dans la barre de statut un menu de type *QuickPick* est affiché.
 
 ## Comment la produire ?
 
