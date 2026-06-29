@@ -12,4 +12,8 @@ Quand l'utilisateur clique *mk* dans la barre de statut un menu de type *QuickPi
 
 Éditer le fichier package.json pour mettre à jour la version et lancer :
 
-    $ vsce package
+    $ npm run package
+
+## Comment l'installer'
+
+    $ npm run install

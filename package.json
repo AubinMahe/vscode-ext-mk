@@ -1,50 +1,55 @@
 {
-   "name": "mk",
-   "displayName": "mk",
-   "description": "Extract PHONY targets of a all the Makefiles of the worspace (multi-projects), add 'mk' button to display a picker list filled with all targets, prefixed by project name.",
-   "version": "0.0.5",
-   "repository": {
-      "type": "git",
-      "url": "git://github.com/aubin.mahe/vscode-ext-mk.git"
+   "activationEvents": ["onStartupFinished"],
+   "categories"      : ["Other", "Programming Languages", "SCM Providers"],
+   "description"     : "Extract PHONY targets of a all the Makefiles of the worspace (multi-projects), add 'mk' button to display a picker list filled with all targets, prefixed by project name.",
+   "displayName"     : "mk",
+   "main"            : "./out/extension.js",
+   "name"            : "mk",
+   "type"            : "module",
+   "publisher"       : "aubin-mahe",
+   "version"         : "1.0.0",
+   "allowScripts"    : {
+      "esbuild@0.28.1": true
    },
-   "engines": {
-      "vscode": "^1.109.5"
-   },
-   "categories": [
-      "Other",
-      "Programming Languages",
-      "SCM Providers"
-   ],
-   "activationEvents": [
-      "onStartupFinished"
-   ],
-   "main": "./out/extension.js",
-   "contributes": {
+   "contributes"     : {
       "commands": [
          {
-            "title": "Makefile",
             "category": "button",
-            "command": "Makefile"
+            "command" : "Makefile",
+            "title"   : "Makefile"
          }
       ]
    },
-   "scripts": {
-      "vscode:prepublish": "npm run compile",
-      "compile": "tsc -p ./",
-      "watch": "tsc -watch -p ./",
-      "pretest": "npm run compile && npm run lint",
-      "lint": "eslint src --ext ts",
-      "test": "node ./out/test/runTest.js"
-   },
-   "devDependencies": {
-      "@types/mocha": "^10.0.10",
-      "@types/node": "25.x",
-      "@types/vscode": "^1.109.0",
+   "devDependencies" : {
+      "@types/mocha"                    : "^10.0.10",
+      "@types/node"                     : "25.x",
+      "@types/vscode"                   : "^1.109.0",
       "@typescript-eslint/eslint-plugin": "^8.56.1",
-      "@typescript-eslint/parser": "^8.56.1",
-      "@vscode/test-electron": "^2.5.2",
-      "glob": "^13.0.6",
-      "mocha": "12.0.0-beta-8",
-      "typescript": "^5.9.3"
+      "@typescript-eslint/parser"       : "^8.56.1",
+      "@vscode/test-electron"           : "^2.5.2",
+      "esbuild"                         : "^0.28.1",
+      "glob"                            : "^13.0.6",
+      "mocha"                           : "12.0.0-beta-8",
+      "typescript"                      : "^5.9.3"
+   },
+   "engines"         : {
+      "vscode": "^1.109.5"
+   },
+   "repository"      : {
+      "type": "git",
+      "url" : "git://github.com/aubin.mahe/vscode-ext-mk.git"
+   },
+   "scripts"         : {
+      "build"            : "node esbuild.js",
+      "build:prod"       : "node esbuild.js --production",
+      "compile"          : "tsc -p ./",
+      "format:package"   : "json_align.py --in-place package.json",
+      "install"          : "code --force --install-extension $npm_package_name-$npm_package_version.vsix",
+      "lint"             : "eslint src/**/*.ts",
+      "package"          : "vsce package",
+      "pretest"          : "npm run compile && npm run lint",
+      "test"             : "node ./out/test/runTest.js",
+      "vscode:prepublish": "npm run build:prod",
+      "watch"            : "node esbuild.js --watch"
    }
 }
