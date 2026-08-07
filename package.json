@@ -5,8 +5,8 @@
    "displayName"     : "mk",
    "main"            : "./out/extension.js",
    "name"            : "mk",
-   "type"            : "module",
    "publisher"       : "aubin-mahe",
+   "type"            : "module",
    "version"         : "1.0.0",
    "allowScripts"    : {
       "esbuild@0.28.1": true
@@ -30,6 +30,7 @@
       "esbuild"                         : "^0.28.1",
       "glob"                            : "^13.0.6",
       "mocha"                           : "12.0.0-beta-8",
+      "package-json-format"             : "file:../package-json-format/package-json-format-1.0.0.tgz",
       "typescript"                      : "^5.9.3"
    },
    "engines"         : {
@@ -43,7 +44,7 @@
       "build"            : "node esbuild.js",
       "build:prod"       : "node esbuild.js --production",
       "compile"          : "tsc -p ./",
-      "format:package"   : "json_align.py --in-place package.json",
+      "format:package"   : "package-json-format --in-place package.json",
       "install"          : "code --force --install-extension $npm_package_name-$npm_package_version.vsix",
       "lint"             : "eslint src/**/*.ts",
       "package"          : "vsce package",
